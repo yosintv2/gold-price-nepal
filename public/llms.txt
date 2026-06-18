@@ -1,0 +1,35 @@
+# GoldNepal — Gold Price Nepal
+
+GoldNepal publishes daily gold and silver prices in Nepal from the Nepal Gold & Silver Dealers' Association (NGSDA).
+
+## What We Cover
+
+- Hallmark Gold Price Nepal (Fine Gold 9999 / 24K) — per tola and per 10 gram
+- Tajabi Gold Price Nepal — per tola and per 10 gram
+- Silver Price Nepal (Chandi) — per tola and per 10 gram
+- Full historical archive of Nepal gold prices by date
+
+## Data Source
+
+All prices are sourced from: https://gold-api.singhs.com.np/gold_rates.json
+Published by: Nepal Gold & Silver Dealers' Association (NGSDA)
+Currency: Nepalese Rupees (NPR)
+Units: Per tola (1 tola = 11.66 grams) and per 10 grams
+
+## Key Pages
+
+- / — Today's gold and silver prices in Nepal
+- /gold-price-nepal/ — Gold price Nepal overview
+- /hallmark-gold-price-nepal/ — Hallmark gold (Fine Gold 9999 / 24K) price
+- /fine-gold-9999-price-nepal/ — Fine gold 9999 price
+- /24k-gold-price-nepal/ — 24 carat gold price
+- /tajabi-gold-price-nepal/ — Tajabi gold price
+- /silver-price-nepal/ — Silver (chandi) price
+- /gold-price-nepal-per-tola/ — Gold price per tola
+- /gold-price-nepal-per-10gm/ — Gold price per 10 gram
+- /history/ — Full historical price archive
+- /[year]/[month]/[day]/ — Daily price pages (e.g. /2026/06/18/)
+
+## About Gold Pricing in Nepal
+
+Gold in Nepal is measured in tola (1 tola = 11.664 grams), with prices also published per 10 grams. The NGSDA sets official rates every business day. Hallmark gold and tajabi gold are the two main gold grades traded in Nepal.
