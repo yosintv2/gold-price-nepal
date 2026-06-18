@@ -4,6 +4,9 @@ import { fetchAllGoldDays, fetchDayByParams } from '@/lib/api';
 import { apiDateToDisplay, apiDateToISO, apiDateToUrlParams, datesFromApiDates } from '@/lib/utils';
 import PriceTable from '@/components/PriceTable';
 
+// Only serve pre-generated paths; any other path → 404 (required for static export).
+export const dynamicParams = false;
+
 interface Params {
   year: string;
   month: string;
@@ -11,8 +14,14 @@ interface Params {
 }
 
 export async function generateStaticParams(): Promise<Params[]> {
-  const allDays = await fetchAllGoldDays();
-  return datesFromApiDates(allDays.map(d => d.date));
+  try {
+    const allDays = await fetchAllGoldDays();
+    return datesFromApiDates(allDays.map(d => d.date));
+  } catch {
+    // If the API is unreachable at build time, produce no daily pages rather
+    // than crashing the entire build.
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
@@ -29,7 +38,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
 export default async function DayPage({ params }: { params: Promise<Params> }) {
   const { year, month, day } = await params;
-  const goldDay = await fetchDayByParams(year, month, day);
+
+  // fetchAllGoldDays uses cache:'force-cache' so the second call here is
+  // served from Next.js fetch cache — no extra network round-trip.
+  const [goldDay, allDays] = await Promise.all([
+    fetchDayByParams(year, month, day),
+    fetchAllGoldDays(),
+  ]);
 
   if (!goldDay) {
     return (
@@ -53,7 +68,7 @@ export default async function DayPage({ params }: { params: Promise<Params> }) {
     description: `Hallmark gold, tajabi gold and silver prices in Nepal on ${displayDate}, per tola and per 10 gram.`,
     datePublished: isoDate,
     license: 'https://creativecommons.org/licenses/by/4.0/',
-    creator: { '@type': 'Organization', name: 'Nepal Gold & Silver Dealers\' Association' },
+    creator: { '@type': 'Organization', name: "Nepal Gold & Silver Dealers' Association" },
     distribution: [
       {
         '@type': 'DataDownload',
@@ -63,13 +78,11 @@ export default async function DayPage({ params }: { params: Promise<Params> }) {
     ],
   };
 
-  // Find prev/next days
-  const allDays = await fetchAllGoldDays();
   const idx = allDays.findIndex(d => d.date === goldDay.date);
   const prevDay = allDays[idx + 1] ?? null;
   const nextDay = allDays[idx - 1] ?? null;
 
-  const dayLink = (d: typeof goldDay) => {
+  const dayHref = (d: { date: string }) => {
     const p = apiDateToUrlParams(d.date);
     return p ? `/${p.year}/${p.month}/${p.day}/` : null;
   };
@@ -96,21 +109,20 @@ export default async function DayPage({ params }: { params: Promise<Params> }) {
 
       <PriceTable day={goldDay} showDate />
 
-      {/* Prev / Next navigation */}
       <div style={{ display: 'flex', gap: 10, margin: '16px 0', flexWrap: 'wrap' }}>
-        {prevDay && dayLink(prevDay) && (
-          <Link href={dayLink(prevDay)!} className="btn-back">
+        {prevDay && dayHref(prevDay) && (
+          <Link href={dayHref(prevDay)!} className="btn-back">
             ← {apiDateToDisplay(prevDay.date)}
           </Link>
         )}
-        {nextDay && dayLink(nextDay) && (
-          <Link href={dayLink(nextDay)!} className="btn-back" style={{ marginLeft: 'auto' }}>
+        {nextDay && dayHref(nextDay) && (
+          <Link href={dayHref(nextDay)!} className="btn-back" style={{ marginLeft: 'auto' }}>
             {apiDateToDisplay(nextDay.date)} →
           </Link>
         )}
       </div>
 
-      <div style={{ margin: '16px 0' }}>
+      <div style={{ margin: '8px 0 24px' }}>
         <Link href="/history/" className="btn-back">← Back to History</Link>
         <Link href="/" className="btn-back" style={{ marginLeft: 8 }}>Today&apos;s Rate</Link>
       </div>

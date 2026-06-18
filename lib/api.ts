@@ -43,19 +43,18 @@ function parseDay(raw: DayRate): GoldDay {
   };
 }
 
-let _cache: GoldDay[] | null = null;
-
 export async function fetchAllGoldDays(): Promise<GoldDay[]> {
-  if (_cache) return _cache;
   try {
-    const res = await fetch(API_URL, { next: { revalidate: 3600 } });
+    // cache: 'force-cache' lets Next.js deduplicate this fetch across all
+    // page renders within the same build worker (replaces module-level cache,
+    // which doesn't survive across parallel CI worker processes).
+    const res = await fetch(API_URL, { cache: 'force-cache' });
     if (!res.ok) return [];
     const data: DayRate[] = await res.json();
-    _cache = data
+    return data
       .filter(d => d.date && Array.isArray(d.rates) && d.rates.length > 0)
       .map(parseDay)
       .reverse(); // newest first
-    return _cache;
   } catch {
     return [];
   }
