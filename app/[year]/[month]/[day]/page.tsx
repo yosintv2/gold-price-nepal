@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { fetchAllGoldDays, fetchDayByParams, fetchAllParams, apiDateToParams, apiDateToISO } from '@/lib/api';
-import { apiDateToDisplay } from '@/lib/utils';
+import { apiDateToDisplay, formatNPR } from '@/lib/utils';
 import PriceTable from '@/components/PriceTable';
+import Faq from '@/components/Faq';
 
 // Static export: only serve pre-generated paths.
 export const dynamicParams = false;
@@ -26,9 +27,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     const { year, month, day } = await params;
     const goldDay = await fetchDayByParams(year, month, day);
     const dateStr = goldDay ? apiDateToDisplay(goldDay.date) : `${day}/${month}/${year}`;
+    const desc = goldDay
+      ? `Gold price in Nepal on ${dateStr}: hallmark gold ${goldDay.hallmark.tola.toLocaleString('en-IN')} NPR/tola, tajabi gold ${goldDay.tajabi.tola.toLocaleString('en-IN')} NPR/tola, silver ${goldDay.silver.tola.toLocaleString('en-IN')} NPR/tola. Historical rates from Nepal Gold & Silver Dealers' Association.`
+      : `Gold and silver price in Nepal on ${dateStr}. Hallmark gold, tajabi gold and silver rates per tola and per 10 gram from Nepal Gold & Silver Dealers' Association.`;
     return {
       title: `Gold Price Nepal ${dateStr} – Historical Rate | GoldNepal`,
-      description: `Gold and silver price in Nepal on ${dateStr}. Hallmark gold, tajabi gold and silver rates per tola and per 10 gram from Nepal Gold & Silver Dealers' Association.`,
+      description: desc,
       alternates: { canonical: `/${year}/${month}/${day}/` },
     };
   } catch {
@@ -63,7 +67,11 @@ export default async function DayPage({ params }: { params: Promise<Params> }) {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
     name: `Gold Price Nepal – ${displayDate}`,
-    description: `Hallmark gold, tajabi gold and silver prices in Nepal on ${displayDate}, per tola and per 10 gram.`,
+    description:
+      `Gold and silver prices in Nepal on ${displayDate}. ` +
+      `Hallmark gold (Fine Gold 9999 / 24K): NPR ${goldDay.hallmark.tola.toLocaleString('en-IN')} per tola, NPR ${goldDay.hallmark.gram10.toLocaleString('en-IN')} per 10 gram. ` +
+      `Tajabi gold: NPR ${goldDay.tajabi.tola.toLocaleString('en-IN')} per tola. ` +
+      `Silver: NPR ${goldDay.silver.tola.toLocaleString('en-IN')} per tola.`,
     datePublished: isoDate,
     license: 'https://creativecommons.org/licenses/by/4.0/',
     creator: { '@type': 'Organization', name: "Nepal Gold & Silver Dealers' Association" },
@@ -72,7 +80,34 @@ export default async function DayPage({ params }: { params: Promise<Params> }) {
       contentUrl: 'https://gold-api.singhs.com.np/gold_rates.json',
       encodingFormat: 'application/json',
     }],
+    variableMeasured: [
+      { '@type': 'PropertyValue', name: 'Hallmark Gold Price Per Tola (NPR)',    value: goldDay.hallmark.tola },
+      { '@type': 'PropertyValue', name: 'Hallmark Gold Price Per 10 Gram (NPR)', value: goldDay.hallmark.gram10 },
+      { '@type': 'PropertyValue', name: 'Tajabi Gold Price Per Tola (NPR)',      value: goldDay.tajabi.tola },
+      { '@type': 'PropertyValue', name: 'Tajabi Gold Price Per 10 Gram (NPR)',   value: goldDay.tajabi.gram10 },
+      { '@type': 'PropertyValue', name: 'Silver Price Per Tola (NPR)',           value: goldDay.silver.tola },
+      { '@type': 'PropertyValue', name: 'Silver Price Per 10 Gram (NPR)',        value: goldDay.silver.gram10 },
+    ],
   };
+
+  const dayFaqs = [
+    {
+      q: `What was the gold price in Nepal on ${displayDate}?`,
+      a: `On ${displayDate}, hallmark gold (Fine Gold 9999 / 24K) was ${formatNPR(goldDay.hallmark.tola)} per tola and ${formatNPR(goldDay.hallmark.gram10)} per 10 gram. Tajabi gold was ${formatNPR(goldDay.tajabi.tola)} per tola and ${formatNPR(goldDay.tajabi.gram10)} per 10 gram.`,
+    },
+    {
+      q: `What was the hallmark gold price in Nepal on ${displayDate}?`,
+      a: `Hallmark gold (Fine Gold 9999 / 24K) in Nepal on ${displayDate} was ${formatNPR(goldDay.hallmark.tola)} per tola and ${formatNPR(goldDay.hallmark.gram10)} per 10 gram, as published by the Nepal Gold & Silver Dealers' Association.`,
+    },
+    {
+      q: `What was the tajabi gold price in Nepal on ${displayDate}?`,
+      a: `Tajabi gold price in Nepal on ${displayDate} was ${formatNPR(goldDay.tajabi.tola)} per tola and ${formatNPR(goldDay.tajabi.gram10)} per 10 gram.`,
+    },
+    {
+      q: `What was the silver price in Nepal on ${displayDate}?`,
+      a: `Silver price in Nepal on ${displayDate} was ${formatNPR(goldDay.silver.tola)} per tola and ${formatNPR(goldDay.silver.gram10)} per 10 gram.`,
+    },
+  ];
 
   const idx = allDays.findIndex(d => d.date === goldDay.date);
   const prevDay = allDays[idx + 1] ?? null;
@@ -122,6 +157,8 @@ export default async function DayPage({ params }: { params: Promise<Params> }) {
         <Link href="/history/" className="btn-back">← Back to History</Link>
         <Link href="/" className="btn-back" style={{ marginLeft: 8 }}>Today&apos;s Rate</Link>
       </div>
+
+      <Faq items={dayFaqs} title={`Gold Price Nepal FAQ – ${displayDate}`} />
     </>
   );
 }

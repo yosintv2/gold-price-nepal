@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { fetchLatestRate, fetchAllGoldDays, apiDateToParams } from '@/lib/api';
+import { fetchLatestRate, fetchAllGoldDays, apiDateToParams, apiDateToISO } from '@/lib/api';
 import { apiDateToDisplay, formatNPR, todayDisplay } from '@/lib/utils';
 import PriceTable from '@/components/PriceTable';
 import Faq from '@/components/Faq';
@@ -12,11 +12,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 };
 
-const HOME_FAQS = [
-  {
-    q: 'What is the gold price today in Nepal?',
-    a: 'The gold price in Nepal is updated daily by the Nepal Gold & Silver Dealers\' Association (NGSDA). Today\'s hallmark gold (fine gold 9999 / 24K) rate and tajabi gold rate are displayed in the table above, in both per tola and per 10 gram units.',
-  },
+// General evergreen FAQs (no prices — those are injected dynamically below)
+const STATIC_FAQS = [
   {
     q: 'What is Hallmark Gold in Nepal?',
     a: 'Hallmark gold in Nepal refers to gold that has been certified for purity by the Nepal Bureau of Standards and Metrology. Hallmark gold is equivalent to Fine Gold 9999 (99.9% pure, also known as 24K gold) — the highest purity available.',
@@ -32,10 +29,6 @@ const HOME_FAQS = [
   {
     q: 'What is the difference between hallmark gold and tajabi gold?',
     a: 'Hallmark gold (Fine Gold 9999) is 99.9% pure 24-karat gold — the highest standard. Tajabi gold has a slightly lower gold content, making it more suitable for detailed jewellery work (it is more malleable) but priced lower per tola.',
-  },
-  {
-    q: 'What is the silver price in Nepal today?',
-    a: 'The current silver price in Nepal per tola and per 10 gram is shown in the price table above. Silver prices in Nepal are also set daily by the Nepal Gold & Silver Dealers\' Association.',
   },
   {
     q: 'How often are Nepal gold prices updated?',
@@ -55,10 +48,78 @@ export default async function HomePage() {
 
   const recentDays = allDays.slice(0, 8);
 
+  // Use API date when available so the headline matches the published rate date
+  const displayDate = latest ? apiDateToDisplay(latest.date) : todayDisplay();
+  const isoDate    = latest ? apiDateToISO(latest.date)      : new Date().toISOString().split('T')[0];
+
+  // Dataset schema with actual prices embedded — crawled by Google for rich results
+  const priceSchema = latest ? {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: `Gold Price in Nepal Today – ${displayDate}`,
+    description:
+      `Today's gold and silver prices in Nepal on ${displayDate}. ` +
+      `Hallmark gold (Fine Gold 9999 / 24K): NPR ${latest.hallmark.tola.toLocaleString('en-IN')} per tola, NPR ${latest.hallmark.gram10.toLocaleString('en-IN')} per 10 gram. ` +
+      `Tajabi gold: NPR ${latest.tajabi.tola.toLocaleString('en-IN')} per tola. ` +
+      `Silver: NPR ${latest.silver.tola.toLocaleString('en-IN')} per tola.`,
+    url: 'https://gold.singhyogendra.com.np/',
+    dateModified: isoDate,
+    creator: { '@type': 'Organization', name: "Nepal Gold & Silver Dealers' Association" },
+    distribution: [{
+      '@type': 'DataDownload',
+      contentUrl: 'https://gold-api.singhs.com.np/gold_rates.json',
+      encodingFormat: 'application/json',
+    }],
+    variableMeasured: [
+      { '@type': 'PropertyValue', name: 'Hallmark Gold Price Per Tola (NPR)',    value: latest.hallmark.tola },
+      { '@type': 'PropertyValue', name: 'Hallmark Gold Price Per 10 Gram (NPR)', value: latest.hallmark.gram10 },
+      { '@type': 'PropertyValue', name: 'Tajabi Gold Price Per Tola (NPR)',      value: latest.tajabi.tola },
+      { '@type': 'PropertyValue', name: 'Tajabi Gold Price Per 10 Gram (NPR)',   value: latest.tajabi.gram10 },
+      { '@type': 'PropertyValue', name: 'Silver Price Per Tola (NPR)',           value: latest.silver.tola },
+      { '@type': 'PropertyValue', name: 'Silver Price Per 10 Gram (NPR)',        value: latest.silver.gram10 },
+    ],
+  } : null;
+
+  // Price-specific FAQs injected first so the FAQPage schema answers include actual NPR values
+  const dynamicFaqs = latest ? [
+    {
+      q: `What is the gold price today in Nepal (${displayDate})?`,
+      a: `Today's hallmark gold price in Nepal is ${formatNPR(latest.hallmark.tola)} per tola and ${formatNPR(latest.hallmark.gram10)} per 10 gram as of ${displayDate}. Tajabi gold is ${formatNPR(latest.tajabi.tola)} per tola and ${formatNPR(latest.tajabi.gram10)} per 10 gram. Rates are published daily by the Nepal Gold & Silver Dealers' Association (NGSDA).`,
+    },
+    {
+      q: 'What is the hallmark gold price per tola in Nepal today?',
+      a: `Hallmark gold (Fine Gold 9999 / 24K) in Nepal is ${formatNPR(latest.hallmark.tola)} per tola and ${formatNPR(latest.hallmark.gram10)} per 10 gram as of ${displayDate}.`,
+    },
+    {
+      q: 'What is the tajabi gold price in Nepal today?',
+      a: `Tajabi gold price in Nepal as of ${displayDate} is ${formatNPR(latest.tajabi.tola)} per tola and ${formatNPR(latest.tajabi.gram10)} per 10 gram.`,
+    },
+    {
+      q: 'What is the silver price today in Nepal?',
+      a: `Silver price in Nepal as of ${displayDate} is ${formatNPR(latest.silver.tola)} per tola and ${formatNPR(latest.silver.gram10)} per 10 gram.`,
+    },
+  ] : [
+    {
+      q: 'What is the gold price today in Nepal?',
+      a: "The gold price in Nepal is updated daily by the Nepal Gold & Silver Dealers' Association (NGSDA). Today's hallmark gold (fine gold 9999 / 24K) rate and tajabi gold rate are displayed in the table above, in both per tola and per 10 gram units.",
+    },
+    {
+      q: 'What is the silver price today in Nepal?',
+      a: "The current silver price in Nepal per tola and per 10 gram is shown in the price table above. Silver prices are set daily by the Nepal Gold & Silver Dealers' Association.",
+    },
+  ];
+
   return (
     <>
+      {priceSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(priceSchema) }}
+        />
+      )}
+
       <div className="page-head">
-        <h1 className="page-title">Gold Price in Nepal Today – {todayDisplay()}</h1>
+        <h1 className="page-title">Gold Price in Nepal Today – {displayDate}</h1>
         <p className="page-sub">
           Daily gold &amp; silver rates from Nepal Gold &amp; Silver Dealers&apos; Association
         </p>
@@ -73,7 +134,7 @@ export default async function HomePage() {
               <div className="price-hero-label">Hallmark Gold (Fine Gold 9999 · 24K)</div>
               <div className="price-hero-price">{formatNPR(latest.hallmark.tola)}</div>
               <div className="price-hero-unit">per tola &nbsp;·&nbsp; {formatNPR(latest.hallmark.gram10)} per 10g</div>
-              <div className="price-hero-date">As of {apiDateToDisplay(latest.date)}</div>
+              <div className="price-hero-date">As of {displayDate}</div>
             </div>
             <div className="price-hero-grid">
               <div className="price-hero-col">
@@ -192,7 +253,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <Faq items={HOME_FAQS} />
+      {/* Dynamic price FAQs first, then evergreen FAQs */}
+      <Faq items={[...dynamicFaqs, ...STATIC_FAQS]} />
     </>
   );
 }
