@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Hallmark Gold Price Nepal Today – Per Tola & 10 Gram | GoldNepal',
   description:
     'Hallmark gold price in Nepal today per tola and per 10 gram. Hallmark gold is Fine Gold 9999 (24K) — the purest gold available in Nepal. Updated daily.',
+  keywords: 'hallmark gold price nepal, hallmark gold nepal, hallmark suna ko bhaau, hallmark gold rate nepal, hallmark suna nepal, fine gold 9999 hallmark nepal, 24k hallmark gold nepal, hallmark gold per tola nepal, hallmark suna bhaau aaja',
   alternates: { canonical: '/hallmark-gold-price-nepal/' },
 };
 

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Gold Price in Nepal – Today\'s Rate Per Tola & 10 Gram | GoldNepal',
   description:
     'Gold price in Nepal: hallmark gold, fine gold 9999, tajabi gold and silver price per tola and per 10 gram. Updated daily from Nepal Gold & Silver Dealers\' Association.',
+  keywords: 'gold price in nepal, nepal gold price, gold rate in nepal, suna ko bhaau nepal, gold rate nepal today, gold price per tola nepal, gold price per gram nepal, nepal suna bhaau, aajako suna ko bhaau',
   alternates: { canonical: '/gold-price-nepal/' },
 };
 

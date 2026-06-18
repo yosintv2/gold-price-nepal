@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     'Today\'s gold price in Nepal: hallmark gold, fine gold 9999, 24K, tajabi gold and silver rates per tola and per 10 gram. Updated daily from Nepal Gold & Silver Dealers\' Association.',
   keywords:
-    'gold price in nepal, gold price nepal today, hallmark gold price nepal, fine gold 9999 price nepal, 24k gold price nepal, tajabi gold price nepal, silver price nepal, suna ko bhaau nepal',
+    'gold price in nepal, gold price in nepal today, gold price today in nepal, gold price nepal today, hallmark gold price nepal, fine gold 9999 price nepal, 24k gold price nepal, tajabi gold price nepal, silver price nepal, suna ko bhaau nepal, aajako suna ko bhaau, nepal gold rate, gold rate nepal today, chandi ko bhaau nepal, gold price per tola nepal, gold price per 10 gram nepal',
   authors: [{ name: 'GoldNepal' }],
   metadataBase: new URL(SITE_URL),
   openGraph: {

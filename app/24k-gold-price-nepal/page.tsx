@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: '24K Gold Price Nepal Today – 24 Carat Gold Rate Per Tola | GoldNepal',
   description:
     '24K gold price in Nepal today per tola and per 10 gram. 24 carat gold is the same as hallmark gold and fine gold 9999 — 99.9% pure. Updated daily.',
+  keywords: '24k gold price nepal, 24 carat gold price nepal, 24k gold rate nepal, 24 karat gold nepal, 24k suna ko bhaau nepal, pure gold 24k nepal, 24k gold per tola nepal, twenty four karat gold nepal, 24 carat suna bhaau',
   alternates: { canonical: '/24k-gold-price-nepal/' },
 };
 

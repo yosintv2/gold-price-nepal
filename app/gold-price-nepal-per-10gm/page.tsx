@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Gold Price in Nepal Per 10 Gram Today – 10 Gram Suna Ko Bhaau | GoldNepal',
   description:
     'Gold price in Nepal per 10 gram today. Hallmark gold and tajabi gold rate per 10 grams in Nepalese Rupees. Updated daily from NGSDA.',
+  keywords: 'gold price per 10 gram nepal, 10 gram gold price nepal, das gram suna ko bhaau, gold per 10g nepal, 10g gold rate nepal, suna das gram nepal, 10 gram suna bhaau aaja, nepal gold per gram today, gold rate 10 gram nepal',
   alternates: { canonical: '/gold-price-nepal-per-10gm/' },
 };
 

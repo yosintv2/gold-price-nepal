@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Tajabi Gold Price Nepal Today – Per Tola & 10 Gram | GoldNepal',
   description:
     'Tajabi gold price in Nepal today per tola and per 10 gram. Tajabi gold is the most popular jewellery gold in Nepal. Updated daily from NGSDA.',
+  keywords: 'tajabi gold price nepal, tajabi suna ko bhaau, tajabi gold rate nepal, tajabi suna nepal, tajabi gold per tola nepal, tajabi suna bhaau aaja, gold jewellery price nepal, nepal jewellery gold price, tajabi gold today',
   alternates: { canonical: '/tajabi-gold-price-nepal/' },
 };
 

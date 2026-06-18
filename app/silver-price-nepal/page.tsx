@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Silver Price Nepal Today – Chandi Bhaau Per Tola & 10 Gram | GoldNepal',
   description:
     'Silver price in Nepal today per tola and per 10 gram. Chandi ko bhaau Nepal — updated daily from Nepal Gold & Silver Dealers\' Association.',
+  keywords: 'silver price nepal, chandi ko bhaau nepal, chandi price nepal, silver rate nepal today, silver price per tola nepal, chandi bhaau nepal, aajako chandi ko bhaau, silver rate nepal, chandi bhaau today nepal',
   alternates: { canonical: '/silver-price-nepal/' },
 };
 

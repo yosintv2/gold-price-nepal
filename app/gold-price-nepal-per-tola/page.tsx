@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Gold Price in Nepal Per Tola Today – Tola Suna Ko Bhaau | GoldNepal',
   description:
     'Gold price in Nepal per tola today. Hallmark gold and tajabi gold rate per tola in Nepalese Rupees. 1 tola = 11.66 grams. Updated daily.',
+  keywords: 'gold price per tola nepal, ek tola suna ko bhaau nepal, gold per tola nepal, tola gold price nepal, 1 tola gold price nepal, suna per tola nepal, gold tola rate nepal, tola suna bhaau aaja, nepal gold per tola today',
   alternates: { canonical: '/gold-price-nepal-per-tola/' },
 };
 

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Fine Gold 9999 Price Nepal Today – 24K Pure Gold Rate | GoldNepal',
   description:
     'Fine gold 9999 price in Nepal today per tola and per 10 gram. Fine gold 9999 is 99.9% pure (24K) — same as hallmark gold. Daily updated rates from NGSDA.',
+  keywords: 'fine gold 9999 price nepal, 9999 gold price nepal, pure gold price nepal, fine gold nepal, 9999 gold rate nepal, 24k fine gold nepal, fine gold per tola nepal, 9999 suna ko bhaau nepal, 99.9 pure gold nepal',
   alternates: { canonical: '/fine-gold-9999-price-nepal/' },
 };
 

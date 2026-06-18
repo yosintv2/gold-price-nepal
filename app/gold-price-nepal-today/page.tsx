@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: `Gold Price Today in Nepal – ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} | GoldNepal`,
   description:
     'Gold price today in Nepal: live hallmark gold, fine gold 9999, 24K and tajabi gold rates per tola and per 10 gram. Updated every business day.',
+  keywords: 'gold price today in nepal, gold price nepal today, aajako suna ko bhaau nepal, today gold price nepal, today gold rate nepal, gold rate today nepal, nepal gold rate today, live gold price nepal',
   alternates: { canonical: '/gold-price-nepal-today/' },
 };
 
