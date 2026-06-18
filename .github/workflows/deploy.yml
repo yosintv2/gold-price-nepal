@@ -1,0 +1,81 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # NGSDA publishes rates ~10–11am NPT (4:15–5:15am UTC).
+    # Run at 5:30am UTC (11:15am NPT) to catch morning rates.
+    - cron: '30 5 * * *'
+    # Second run at 8am UTC (1:45pm NPT) as a fallback.
+    - cron: '0 8 * * *'
+  workflow_dispatch:   # Allow manual trigger from GitHub Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_BASE_PATH: ""
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Ping Google sitemap
+        run: |
+          curl -s "https://www.google.com/ping?sitemap=${{ vars.NEXT_PUBLIC_SITE_URL }}/sitemap.xml" -o /dev/null
+
+      - name: Ping Bing IndexNow
+        run: |
+          curl -s -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "host": "${{ vars.INDEXNOW_HOST }}",
+              "key": "${{ secrets.INDEXNOW_KEY }}",
+              "urlList": [
+                "${{ vars.NEXT_PUBLIC_SITE_URL }}/",
+                "${{ vars.NEXT_PUBLIC_SITE_URL }}/gold-price-nepal/",
+                "${{ vars.NEXT_PUBLIC_SITE_URL }}/gold-price-nepal-today/",
+                "${{ vars.NEXT_PUBLIC_SITE_URL }}/hallmark-gold-price-nepal/",
+                "${{ vars.NEXT_PUBLIC_SITE_URL }}/tajabi-gold-price-nepal/",
+                "${{ vars.NEXT_PUBLIC_SITE_URL }}/silver-price-nepal/"
+              ]
+            }' \
+            -o /dev/null
