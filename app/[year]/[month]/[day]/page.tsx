@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { fetchAllGoldDays, fetchDayByParams } from '@/lib/api';
-import { apiDateToDisplay, apiDateToISO, apiDateToUrlParams, datesFromApiDates } from '@/lib/utils';
+import { fetchAllGoldDays, fetchDayByParams, fetchAllParams, apiDateToParams, apiDateToISO } from '@/lib/api';
+import { apiDateToDisplay } from '@/lib/utils';
 import PriceTable from '@/components/PriceTable';
 
-// Only serve pre-generated paths; any other path → 404 (required for static export).
+// Static export: only serve pre-generated paths.
 export const dynamicParams = false;
 
 interface Params {
@@ -15,32 +15,30 @@ interface Params {
 
 export async function generateStaticParams(): Promise<Params[]> {
   try {
-    const allDays = await fetchAllGoldDays();
-    return datesFromApiDates(allDays.map(d => d.date));
+    return await fetchAllParams();
   } catch {
-    // If the API is unreachable at build time, produce no daily pages rather
-    // than crashing the entire build.
     return [];
   }
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
-  const { year, month, day } = await params;
-  const goldDay = await fetchDayByParams(year, month, day);
-  const dateStr = goldDay ? apiDateToDisplay(goldDay.date) : `${day}/${month}/${year}`;
-
-  return {
-    title: `Gold Price Nepal ${dateStr} – Historical Rate | GoldNepal`,
-    description: `Gold and silver price in Nepal on ${dateStr}. Hallmark gold, tajabi gold and silver rates per tola and per 10 gram from Nepal Gold & Silver Dealers' Association.`,
-    alternates: { canonical: `/${year}/${month}/${day}/` },
-  };
+  try {
+    const { year, month, day } = await params;
+    const goldDay = await fetchDayByParams(year, month, day);
+    const dateStr = goldDay ? apiDateToDisplay(goldDay.date) : `${day}/${month}/${year}`;
+    return {
+      title: `Gold Price Nepal ${dateStr} – Historical Rate | GoldNepal`,
+      description: `Gold and silver price in Nepal on ${dateStr}. Hallmark gold, tajabi gold and silver rates per tola and per 10 gram from Nepal Gold & Silver Dealers' Association.`,
+      alternates: { canonical: `/${year}/${month}/${day}/` },
+    };
+  } catch {
+    return { title: 'Gold Price Nepal – Historical Rate | GoldNepal' };
+  }
 }
 
 export default async function DayPage({ params }: { params: Promise<Params> }) {
   const { year, month, day } = await params;
 
-  // fetchAllGoldDays uses cache:'force-cache' so the second call here is
-  // served from Next.js fetch cache — no extra network round-trip.
   const [goldDay, allDays] = await Promise.all([
     fetchDayByParams(year, month, day),
     fetchAllGoldDays(),
@@ -69,13 +67,11 @@ export default async function DayPage({ params }: { params: Promise<Params> }) {
     datePublished: isoDate,
     license: 'https://creativecommons.org/licenses/by/4.0/',
     creator: { '@type': 'Organization', name: "Nepal Gold & Silver Dealers' Association" },
-    distribution: [
-      {
-        '@type': 'DataDownload',
-        contentUrl: 'https://gold-api.singhs.com.np/gold_rates.json',
-        encodingFormat: 'application/json',
-      },
-    ],
+    distribution: [{
+      '@type': 'DataDownload',
+      contentUrl: 'https://gold-api.singhs.com.np/gold_rates.json',
+      encodingFormat: 'application/json',
+    }],
   };
 
   const idx = allDays.findIndex(d => d.date === goldDay.date);
@@ -83,7 +79,7 @@ export default async function DayPage({ params }: { params: Promise<Params> }) {
   const nextDay = allDays[idx - 1] ?? null;
 
   const dayHref = (d: { date: string }) => {
-    const p = apiDateToUrlParams(d.date);
+    const p = apiDateToParams(d.date);
     return p ? `/${p.year}/${p.month}/${p.day}/` : null;
   };
 

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { fetchAllGoldDays } from '@/lib/api';
-import { apiDateToDisplay, apiDateToUrlParams, formatNPR } from '@/lib/utils';
+import { fetchAllGoldDays, apiDateToParams } from '@/lib/api';
+import { apiDateToDisplay, formatNPR } from '@/lib/utils';
 import Faq from '@/components/Faq';
 
 export const metadata: Metadata = {
@@ -52,7 +52,7 @@ export default async function HistoryPage() {
           </thead>
           <tbody>
             {allDays.map((d, i) => {
-              const p = apiDateToUrlParams(d.date);
+              const p = apiDateToParams(d.date);
               return (
                 <tr key={d.date} className={i === 0 ? 'history-today' : undefined}>
                   <td>

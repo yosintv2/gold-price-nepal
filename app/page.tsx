@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { fetchLatestRate, fetchAllGoldDays } from '@/lib/api';
-import { apiDateToDisplay, apiDateToUrlParams, formatNPR, todayDisplay } from '@/lib/utils';
+import { fetchLatestRate, fetchAllGoldDays, apiDateToParams } from '@/lib/api';
+import { apiDateToDisplay, formatNPR, todayDisplay } from '@/lib/utils';
 import PriceTable from '@/components/PriceTable';
 import Faq from '@/components/Faq';
 
@@ -115,7 +115,7 @@ export default async function HomePage() {
                   </thead>
                   <tbody>
                     {recentDays.map((d, i) => {
-                      const p = apiDateToUrlParams(d.date);
+                      const p = apiDateToParams(d.date);
                       return (
                         <tr key={d.date} className={i === 0 ? 'history-today' : undefined}>
                           <td>

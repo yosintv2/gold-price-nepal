@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { fetchAllGoldDays } from '@/lib/api';
-import { apiDateToUrlParams } from '@/lib/utils';
+import { fetchAllGoldDays, apiDateToParams } from '@/lib/api';
 
 export const dynamic = 'force-static';
 
@@ -32,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const dayEntries: MetadataRoute.Sitemap = allDays
     .map(d => {
-      const p = apiDateToUrlParams(d.date);
+      const p = apiDateToParams(d.date);
       if (!p) return null;
       return {
         url: `${SITE_URL}/${p.year}/${p.month}/${p.day}/`,
