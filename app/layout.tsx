@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import ScriptLoaders from '@/components/ScriptLoaders';
 import CookieBanner from '@/components/CookieBanner';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.goldnepal.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://gold.singhyogendra.com.np';
 
 export const metadata: Metadata = {
   title: 'Gold Price in Nepal Today – Live Gold & Silver Rates | GoldNepal',

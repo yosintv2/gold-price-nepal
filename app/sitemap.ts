@@ -3,7 +3,7 @@ import { fetchAllGoldDays, apiDateToParams } from '@/lib/api';
 
 export const dynamic = 'force-static';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.goldnepal.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://gold.singhyogendra.com.np';
 
 const STATIC_PAGES = [
   { url: '/', priority: 1.0, changeFrequency: 'daily' as const },
