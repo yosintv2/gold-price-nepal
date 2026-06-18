@@ -43,23 +43,28 @@ function parseDay(raw: DayRate): GoldDay {
   };
 }
 
-export async function fetchAllGoldDays(): Promise<GoldDay[]> {
+// Module-level singleton: all page renders in one build worker share one fetch.
+let _request: Promise<GoldDay[]> | null = null;
+
+async function _doFetch(): Promise<GoldDay[]> {
+  const controller = new AbortController();
+  const tid = setTimeout(() => controller.abort(), 20_000);
   try {
-    const res = await fetch(API_URL, {
-      // force-cache deduplicates the request within one Next.js build worker.
-      // AbortSignal.timeout fails fast if the API is slow in CI.
-      cache: 'force-cache',
-      signal: AbortSignal.timeout(20_000),
-    });
+    const res = await fetch(API_URL, { signal: controller.signal });
     if (!res.ok) return [];
     const data: DayRate[] = await res.json();
     return data
       .filter(d => d.date && d.date.trim() !== '' && Array.isArray(d.rates) && d.rates.length > 0)
       .map(parseDay)
-      .reverse(); // newest first
-  } catch {
-    return [];
+      .reverse();
+  } finally {
+    clearTimeout(tid);
   }
+}
+
+export function fetchAllGoldDays(): Promise<GoldDay[]> {
+  if (!_request) _request = _doFetch().catch(() => []);
+  return _request;
 }
 
 export async function fetchLatestRate(): Promise<GoldDay | null> {
