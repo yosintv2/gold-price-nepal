@@ -129,23 +129,35 @@ export default async function HomePage() {
         <>
           {/* Hero price bar */}
           <div className="price-hero" role="region" aria-label="Today's gold price Nepal">
-            <div className="price-hero-icon" aria-hidden="true">🥇</div>
-            <div className="price-hero-info">
-              <div className="price-hero-label">Hallmark Gold (Fine Gold 9999 · 24K)</div>
-              <div className="price-hero-price">{formatNPR(latest.hallmark.tola)}</div>
-              <div className="price-hero-unit">per tola &nbsp;·&nbsp; {formatNPR(latest.hallmark.gram10)} per 10g</div>
-              <div className="price-hero-date">As of {displayDate}</div>
+            <div className="price-hero-main">
+              <div className="price-hero-icon" aria-hidden="true">🥇</div>
+              <div className="price-hero-info">
+                <div className="price-hero-label">Hallmark Gold (Fine Gold 9999 · 24K)</div>
+                <div className="price-hero-row">
+                  <span className="price-hero-price">{formatNPR(latest.hallmark.tola)}</span>
+                  <span className="price-hero-per">/ tola</span>
+                </div>
+                <div className="price-hero-row price-hero-row-10g">
+                  <span className="price-hero-price-10g">{formatNPR(latest.hallmark.gram10)}</span>
+                  <span className="price-hero-per">/ 10g</span>
+                </div>
+                <div className="price-hero-date">As of {displayDate}</div>
+              </div>
             </div>
             <div className="price-hero-grid">
               <div className="price-hero-col">
                 <div className="price-hero-col-label">Tajabi Gold</div>
-                <div className="price-hero-col-val">{formatNPR(latest.tajabi.tola)}</div>
-                <div className="price-hero-col-unit">per tola</div>
+                <div className="price-hero-col-row">
+                  <span className="price-hero-col-val">{formatNPR(latest.tajabi.tola)}</span>
+                  <span className="price-hero-col-per">/ tola</span>
+                </div>
               </div>
               <div className="price-hero-col">
                 <div className="price-hero-col-label">Silver</div>
-                <div className="price-hero-col-val">{formatNPR(latest.silver.tola)}</div>
-                <div className="price-hero-col-unit">per tola</div>
+                <div className="price-hero-col-row">
+                  <span className="price-hero-col-val">{formatNPR(latest.silver.tola)}</span>
+                  <span className="price-hero-col-per">/ tola</span>
+                </div>
               </div>
             </div>
           </div>
