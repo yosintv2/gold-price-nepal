@@ -16,7 +16,7 @@ const QUICK_LINKS = [
   { href: '/hallmark-gold-price-nepal/', label: 'Hallmark Gold' },
   { href: '/fine-gold-9999-price-nepal/', label: 'Fine Gold 9999' },
   { href: '/24k-gold-price-nepal/', label: '24K Gold' },
-  { href: '/tajabi-gold-price-nepal/', label: 'Tajabi Gold' },
+  { href: '/tejabi-gold-price-nepal/', label: 'Tejabi Gold' },
   { href: '/gold-price-nepal-per-tola/', label: 'Per Tola' },
   { href: '/gold-price-nepal-per-10gm/', label: 'Per 10g' },
   { href: '/silver-price-nepal/', label: 'Silver' },

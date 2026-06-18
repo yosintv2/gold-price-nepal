@@ -8,7 +8,7 @@ import Faq from '@/components/Faq';
 export const metadata: Metadata = {
   title: 'Gold Price in Nepal Per 10 Gram Today – 10 Gram Suna Ko Bhaau | GoldNepal',
   description:
-    'Gold price in Nepal per 10 gram today. Hallmark gold and tajabi gold rate per 10 grams in Nepalese Rupees. Updated daily from NGSDA.',
+    'Gold price in Nepal per 10 gram today. Hallmark gold and tejabi gold rate per 10 grams in Nepalese Rupees. Updated daily from NGSDA.',
   keywords: 'gold price per 10 gram nepal, 10 gram gold price nepal, das gram suna ko bhaau, gold per 10g nepal, 10g gold rate nepal, suna das gram nepal, 10 gram suna bhaau aaja, nepal gold per gram today, gold rate 10 gram nepal',
   alternates: { canonical: '/gold-price-nepal-per-10gm/' },
 };
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: 'What is the gold price per 10 grams in Nepal?',
-    a: 'Today\'s gold price per 10 grams in Nepal is shown in the table above for both hallmark gold (Fine Gold 9999 / 24K) and tajabi gold. This rate is published daily by the Nepal Gold & Silver Dealers\' Association.',
+    a: 'Today\'s gold price per 10 grams in Nepal is shown in the table above for both hallmark gold (Fine Gold 9999 / 24K) and tejabi gold. This rate is published daily by the Nepal Gold & Silver Dealers\' Association.',
   },
   {
     q: 'Is 10 gram or tola the standard unit for gold in Nepal?',
@@ -51,7 +51,7 @@ export default async function GoldPer10GmPage() {
             </div>
             <div className="stat-card">
               <div className="stat-val">{formatNPR(latest.tajabi.gram10)}</div>
-              <div className="stat-label">Tajabi Gold / 10g</div>
+              <div className="stat-label">Tejabi Gold / 10g</div>
             </div>
             <div className="stat-card">
               <div className="stat-val">{formatNPR(latest.silver.gram10)}</div>
@@ -81,7 +81,7 @@ export default async function GoldPer10GmPage() {
         <div className="tag-cloud" style={{ marginTop: 12 }}>
           <Link href="/gold-price-nepal-per-tola/" className="tag-pill">Gold Price Per Tola</Link>
           <Link href="/hallmark-gold-price-nepal/" className="tag-pill">Hallmark Gold</Link>
-          <Link href="/tajabi-gold-price-nepal/" className="tag-pill">Tajabi Gold</Link>
+          <Link href="/tejabi-gold-price-nepal/" className="tag-pill">Tejabi Gold</Link>
           <Link href="/silver-price-nepal/" className="tag-pill">Silver Price</Link>
         </div>
       </section>

@@ -53,12 +53,20 @@ export default async function HallmarkGoldPage() {
       {latest ? (
         <>
           <div className="price-hero">
-            <div className="price-hero-icon" aria-hidden="true">✨</div>
-            <div className="price-hero-info">
-              <div className="price-hero-label">Hallmark Gold Price Nepal (Fine Gold 9999 / 24K)</div>
-              <div className="price-hero-price">{formatNPR(latest.hallmark.tola)}</div>
-              <div className="price-hero-unit">per tola &nbsp;·&nbsp; {formatNPR(latest.hallmark.gram10)} per 10g</div>
-              <div className="price-hero-date">As of {apiDateToDisplay(latest.date)}</div>
+            <div className="price-hero-main">
+              <div className="price-hero-icon" aria-hidden="true">✨</div>
+              <div className="price-hero-info">
+                <div className="price-hero-label">Hallmark Gold Price Nepal (Fine Gold 9999 / 24K)</div>
+                <div className="price-hero-row">
+                  <span className="price-hero-price">{formatNPR(latest.hallmark.tola)}</span>
+                  <span className="price-hero-per">/ tola</span>
+                </div>
+                <div className="price-hero-row price-hero-row-10g">
+                  <span className="price-hero-price-10g">{formatNPR(latest.hallmark.gram10)}</span>
+                  <span className="price-hero-per">/ 10g</span>
+                </div>
+                <div className="price-hero-date">As of {apiDateToDisplay(latest.date)}</div>
+              </div>
             </div>
           </div>
           <PriceTable day={latest} highlight="hallmark" showDate />
@@ -86,7 +94,7 @@ export default async function HallmarkGoldPage() {
         <div className="tag-cloud" style={{ marginTop: 12 }}>
           <Link href="/fine-gold-9999-price-nepal/" className="tag-pill">Fine Gold 9999</Link>
           <Link href="/24k-gold-price-nepal/" className="tag-pill">24K Gold Price</Link>
-          <Link href="/tajabi-gold-price-nepal/" className="tag-pill">Tajabi Gold</Link>
+          <Link href="/tejabi-gold-price-nepal/" className="tag-pill">Tejabi Gold</Link>
           <Link href="/gold-price-nepal-per-tola/" className="tag-pill">Per Tola Rate</Link>
           <Link href="/history/" className="tag-pill">Price History</Link>
         </div>

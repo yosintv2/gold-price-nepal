@@ -27,7 +27,7 @@ export default function Footer() {
               <Link href="/hallmark-gold-price-nepal/" className="footer-link">Hallmark Gold Price</Link>
               <Link href="/fine-gold-9999-price-nepal/" className="footer-link">Fine Gold 9999 Price</Link>
               <Link href="/24k-gold-price-nepal/" className="footer-link">24K Gold Price</Link>
-              <Link href="/tajabi-gold-price-nepal/" className="footer-link">Tajabi Gold Price</Link>
+              <Link href="/tejabi-gold-price-nepal/" className="footer-link">Tejabi Gold Price</Link>
             </div>
           </div>
 

@@ -24,7 +24,7 @@ const FAQS = [
   },
   {
     q: 'Is 24K gold used for jewellery in Nepal?',
-    a: '24K gold is very soft and is mainly used for investment (coins, bars) rather than everyday jewellery. Most Nepali jewellery is made from tajabi gold, which is slightly less pure but more durable for intricate designs.',
+    a: '24K gold is very soft and is mainly used for investment (coins, bars) rather than everyday jewellery. Most Nepali jewellery is made from tejabi gold, which is slightly less pure but more durable for intricate designs.',
   },
 ];
 
@@ -49,12 +49,20 @@ export default async function Gold24KPage() {
       {latest ? (
         <>
           <div className="price-hero">
-            <div className="price-hero-icon" aria-hidden="true">🏅</div>
-            <div className="price-hero-info">
-              <div className="price-hero-label">24K Gold Price Nepal (Hallmark / Fine Gold 9999)</div>
-              <div className="price-hero-price">{formatNPR(latest.hallmark.tola)}</div>
-              <div className="price-hero-unit">per tola &nbsp;·&nbsp; {formatNPR(latest.hallmark.gram10)} per 10g</div>
-              <div className="price-hero-date">As of {apiDateToDisplay(latest.date)}</div>
+            <div className="price-hero-main">
+              <div className="price-hero-icon" aria-hidden="true">🏅</div>
+              <div className="price-hero-info">
+                <div className="price-hero-label">24K Gold Price Nepal (Hallmark / Fine Gold 9999)</div>
+                <div className="price-hero-row">
+                  <span className="price-hero-price">{formatNPR(latest.hallmark.tola)}</span>
+                  <span className="price-hero-per">/ tola</span>
+                </div>
+                <div className="price-hero-row price-hero-row-10g">
+                  <span className="price-hero-price-10g">{formatNPR(latest.hallmark.gram10)}</span>
+                  <span className="price-hero-per">/ 10g</span>
+                </div>
+                <div className="price-hero-date">As of {apiDateToDisplay(latest.date)}</div>
+              </div>
             </div>
           </div>
           <PriceTable day={latest} highlight="hallmark" showDate />
@@ -76,12 +84,12 @@ export default async function Gold24KPage() {
         </p>
         <p>
           24K gold is primarily used for investment products such as gold bars and coins. For
-          jewellery, most Nepali craftsmen prefer tajabi gold due to its added hardness.
+          jewellery, most Nepali craftsmen prefer tejabi gold due to its added hardness.
         </p>
         <div className="tag-cloud" style={{ marginTop: 12 }}>
           <Link href="/hallmark-gold-price-nepal/" className="tag-pill">Hallmark Gold</Link>
           <Link href="/fine-gold-9999-price-nepal/" className="tag-pill">Fine Gold 9999</Link>
-          <Link href="/tajabi-gold-price-nepal/" className="tag-pill">Tajabi Gold</Link>
+          <Link href="/tejabi-gold-price-nepal/" className="tag-pill">Tejabi Gold</Link>
           <Link href="/gold-price-nepal-per-tola/" className="tag-pill">Per Tola</Link>
           <Link href="/gold-price-nepal-per-10gm/" className="tag-pill">Per 10g</Link>
         </div>

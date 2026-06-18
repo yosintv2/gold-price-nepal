@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Gold Price in Nepal Today – Live Gold & Silver Rates | GoldNepal',
   description:
     'Gold price in Nepal today: hallmark gold, fine gold 9999, 24K, tajabi and silver per tola and per 10 gram. Daily updated rates from Nepal Gold & Silver Dealers\' Association.',
-  keywords: 'gold price in nepal today, gold price today in nepal, gold price nepal today, aajako suna ko bhaau nepal, hallmark gold price nepal today, tajabi gold price nepal today, silver price nepal today, nepal gold rate today, suna ko bhaau aaja, gold price per tola nepal today',
+  keywords: 'gold price in nepal today, gold price today in nepal, gold price nepal today, aajako suna ko bhaau nepal, hallmark gold price nepal today, tejabi gold price nepal today, silver price nepal today, nepal gold rate today, suna ko bhaau aaja, gold price per tola nepal today',
   alternates: { canonical: '/' },
 };
 
@@ -20,16 +20,16 @@ const STATIC_FAQS = [
     a: 'Hallmark gold in Nepal refers to gold that has been certified for purity by the Nepal Bureau of Standards and Metrology. Hallmark gold is equivalent to Fine Gold 9999 (99.9% pure, also known as 24K gold) — the highest purity available.',
   },
   {
-    q: 'What is Tajabi Gold?',
-    a: 'Tajabi gold is a slightly lower purity gold commonly used in Nepali jewellery making. It is less pure than hallmark/fine gold 9999, which is why its price per tola is lower. Tajabi gold is widely used for traditional jewellery across Nepal.',
+    q: 'What is Tejabi Gold?',
+    a: 'Tejabi gold is a slightly lower purity gold commonly used in Nepali jewellery making. It is less pure than hallmark/fine gold 9999, which is why its price per tola is lower. Tejabi gold is widely used for traditional jewellery across Nepal.',
   },
   {
     q: 'How much is one tola of gold in Nepal?',
-    a: 'One tola equals 11.66 grams. The current price of one tola of hallmark gold in Nepal is shown in the price table above, updated daily. Tajabi gold price per tola is also listed.',
+    a: 'One tola equals 11.66 grams. The current price of one tola of hallmark gold in Nepal is shown in the price table above, updated daily. Tejabi gold price per tola is also listed.',
   },
   {
-    q: 'What is the difference between hallmark gold and tajabi gold?',
-    a: 'Hallmark gold (Fine Gold 9999) is 99.9% pure 24-karat gold — the highest standard. Tajabi gold has a slightly lower gold content, making it more suitable for detailed jewellery work (it is more malleable) but priced lower per tola.',
+    q: 'What is the difference between hallmark gold and tejabi gold?',
+    a: 'Hallmark gold (Fine Gold 9999) is 99.9% pure 24-karat gold — the highest standard. Tejabi gold has a slightly lower gold content, making it more suitable for detailed jewellery work (it is more malleable) but priced lower per tola.',
   },
   {
     q: 'How often are Nepal gold prices updated?',
@@ -61,7 +61,7 @@ export default async function HomePage() {
     description:
       `Today's gold and silver prices in Nepal on ${displayDate}. ` +
       `Hallmark gold (Fine Gold 9999 / 24K): NPR ${latest.hallmark.tola.toLocaleString('en-IN')} per tola, NPR ${latest.hallmark.gram10.toLocaleString('en-IN')} per 10 gram. ` +
-      `Tajabi gold: NPR ${latest.tajabi.tola.toLocaleString('en-IN')} per tola. ` +
+      `Tejabi gold: NPR ${latest.tajabi.tola.toLocaleString('en-IN')} per tola. ` +
       `Silver: NPR ${latest.silver.tola.toLocaleString('en-IN')} per tola.`,
     url: 'https://gold.singhyogendra.com.np/',
     dateModified: isoDate,
@@ -74,8 +74,8 @@ export default async function HomePage() {
     variableMeasured: [
       { '@type': 'PropertyValue', name: 'Hallmark Gold Price Per Tola (NPR)',    value: latest.hallmark.tola },
       { '@type': 'PropertyValue', name: 'Hallmark Gold Price Per 10 Gram (NPR)', value: latest.hallmark.gram10 },
-      { '@type': 'PropertyValue', name: 'Tajabi Gold Price Per Tola (NPR)',      value: latest.tajabi.tola },
-      { '@type': 'PropertyValue', name: 'Tajabi Gold Price Per 10 Gram (NPR)',   value: latest.tajabi.gram10 },
+      { '@type': 'PropertyValue', name: 'Tejabi Gold Price Per Tola (NPR)',      value: latest.tajabi.tola },
+      { '@type': 'PropertyValue', name: 'Tejabi Gold Price Per 10 Gram (NPR)',   value: latest.tajabi.gram10 },
       { '@type': 'PropertyValue', name: 'Silver Price Per Tola (NPR)',           value: latest.silver.tola },
       { '@type': 'PropertyValue', name: 'Silver Price Per 10 Gram (NPR)',        value: latest.silver.gram10 },
     ],
@@ -85,15 +85,15 @@ export default async function HomePage() {
   const dynamicFaqs = latest ? [
     {
       q: `What is the gold price today in Nepal (${displayDate})?`,
-      a: `Today's hallmark gold price in Nepal is ${formatNPR(latest.hallmark.tola)} per tola and ${formatNPR(latest.hallmark.gram10)} per 10 gram as of ${displayDate}. Tajabi gold is ${formatNPR(latest.tajabi.tola)} per tola and ${formatNPR(latest.tajabi.gram10)} per 10 gram. Rates are published daily by the Nepal Gold & Silver Dealers' Association (NGSDA).`,
+      a: `Today's hallmark gold price in Nepal is ${formatNPR(latest.hallmark.tola)} per tola and ${formatNPR(latest.hallmark.gram10)} per 10 gram as of ${displayDate}. Tejabi gold is ${formatNPR(latest.tajabi.tola)} per tola and ${formatNPR(latest.tajabi.gram10)} per 10 gram. Rates are published daily by the Nepal Gold & Silver Dealers' Association (NGSDA).`,
     },
     {
       q: 'What is the hallmark gold price per tola in Nepal today?',
       a: `Hallmark gold (Fine Gold 9999 / 24K) in Nepal is ${formatNPR(latest.hallmark.tola)} per tola and ${formatNPR(latest.hallmark.gram10)} per 10 gram as of ${displayDate}.`,
     },
     {
-      q: 'What is the tajabi gold price in Nepal today?',
-      a: `Tajabi gold price in Nepal as of ${displayDate} is ${formatNPR(latest.tajabi.tola)} per tola and ${formatNPR(latest.tajabi.gram10)} per 10 gram.`,
+      q: 'What is the tejabi gold price in Nepal today?',
+      a: `Tejabi gold price in Nepal as of ${displayDate} is ${formatNPR(latest.tajabi.tola)} per tola and ${formatNPR(latest.tajabi.gram10)} per 10 gram.`,
     },
     {
       q: 'What is the silver price today in Nepal?',
@@ -102,7 +102,7 @@ export default async function HomePage() {
   ] : [
     {
       q: 'What is the gold price today in Nepal?',
-      a: "The gold price in Nepal is updated daily by the Nepal Gold & Silver Dealers' Association (NGSDA). Today's hallmark gold (fine gold 9999 / 24K) rate and tajabi gold rate are displayed in the table above, in both per tola and per 10 gram units.",
+      a: "The gold price in Nepal is updated daily by the Nepal Gold & Silver Dealers' Association (NGSDA). Today's hallmark gold (fine gold 9999 / 24K) rate and tejabi gold rate are displayed in the table above, in both per tola and per 10 gram units.",
     },
     {
       q: 'What is the silver price today in Nepal?',
@@ -147,7 +147,7 @@ export default async function HomePage() {
             </div>
             <div className="price-hero-grid">
               <div className="price-hero-col">
-                <div className="price-hero-col-label">Tajabi Gold</div>
+                <div className="price-hero-col-label">Tejabi Gold</div>
                 <div className="price-hero-col-row">
                   <span className="price-hero-col-val">{formatNPR(latest.tajabi.tola)}</span>
                   <span className="price-hero-col-per">/ tola</span>
@@ -229,7 +229,7 @@ export default async function HomePage() {
         <h2>आजको सुन चाँदीको भाउ — नेपाल</h2>
         <p>
           नेपालमा सुनको भाउ नेपाल सुन तथा चाँदी व्यवसायी महासंघले प्रत्येक कार्य दिनमा निर्धारण गर्छ।
-          हलमार्क सुन (फाइन गोल्ड ९९९९ / २४ क्यारेट) र तजबी सुनको भाउ तोला र १० ग्राम दुवैमा उपलब्ध छ।
+          हलमार्क सुन (फाइन गोल्ड ९९९९ / २४ क्यारेट) र तेजाबी सुनको भाउ तोला र १० ग्राम दुवैमा उपलब्ध छ।
         </p>
         {latest && (
           <div className="nepali-price-row">
@@ -238,7 +238,7 @@ export default async function HomePage() {
               <div className="npc-val">{formatNPR(latest.hallmark.tola)}</div>
             </div>
             <div className="nepali-price-card">
-              <div className="npc-label">तजबी सुन (प्रति तोला)</div>
+              <div className="npc-label">तेजाबी सुन (प्रति तोला)</div>
               <div className="npc-val">{formatNPR(latest.tajabi.tola)}</div>
             </div>
             <div className="nepali-price-card">
@@ -258,7 +258,7 @@ export default async function HomePage() {
           <Link href="/hallmark-gold-price-nepal/" className="tag-pill">Hallmark Gold Price</Link>
           <Link href="/fine-gold-9999-price-nepal/" className="tag-pill">Fine Gold 9999 Price</Link>
           <Link href="/24k-gold-price-nepal/" className="tag-pill">24K Gold Price</Link>
-          <Link href="/tajabi-gold-price-nepal/" className="tag-pill">Tajabi Gold Price</Link>
+          <Link href="/tejabi-gold-price-nepal/" className="tag-pill">Tejabi Gold Price</Link>
           <Link href="/silver-price-nepal/" className="tag-pill">Silver Price Nepal</Link>
           <Link href="/gold-price-nepal-per-tola/" className="tag-pill">Gold Price Per Tola</Link>
           <Link href="/gold-price-nepal-per-10gm/" className="tag-pill">Gold Price Per 10g</Link>

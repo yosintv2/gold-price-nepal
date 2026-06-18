@@ -19,9 +19,9 @@ const ROWS: { key: GoldType; label: string; subLabel: string; href: string }[] =
   },
   {
     key: 'tajabi',
-    label: 'Tajabi Gold',
+    label: 'Tejabi Gold',
     subLabel: 'Standard purity',
-    href: '/tajabi-gold-price-nepal/',
+    href: '/tejabi-gold-price-nepal/',
   },
   {
     key: 'silver',

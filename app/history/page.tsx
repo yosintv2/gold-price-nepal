@@ -7,7 +7,7 @@ import Faq from '@/components/Faq';
 export const metadata: Metadata = {
   title: 'Gold Price History Nepal – Historical Gold Rates | GoldNepal',
   description:
-    'Historical gold price in Nepal: browse past hallmark gold, tajabi gold and silver rates per tola. Full date-by-date price archive from Nepal Gold & Silver Dealers\' Association.',
+    'Historical gold price in Nepal: browse past hallmark gold, tejabi gold and silver rates per tola. Full date-by-date price archive from Nepal Gold & Silver Dealers\' Association.',
   alternates: { canonical: '/history/' },
 };
 
@@ -77,7 +77,7 @@ export default async function HistoryPage() {
         <p>
           This page archives all daily gold and silver prices in Nepal published by the Nepal
           Gold &amp; Silver Dealers&apos; Association (NGSDA). Each entry shows hallmark gold
-          (Fine Gold 9999 / 24K), tajabi gold, and silver rates per tola.
+          (Fine Gold 9999 / 24K), tejabi gold, and silver rates per tola.
         </p>
         <p>
           Click any date to view a dedicated page with the full price breakdown including per-10-gram
@@ -86,7 +86,7 @@ export default async function HistoryPage() {
         <div className="tag-cloud" style={{ marginTop: 12 }}>
           <Link href="/" className="tag-pill">Today&apos;s Rate</Link>
           <Link href="/hallmark-gold-price-nepal/" className="tag-pill">Hallmark Gold</Link>
-          <Link href="/tajabi-gold-price-nepal/" className="tag-pill">Tajabi Gold</Link>
+          <Link href="/tejabi-gold-price-nepal/" className="tag-pill">Tejabi Gold</Link>
           <Link href="/silver-price-nepal/" className="tag-pill">Silver Price</Link>
         </div>
       </section>

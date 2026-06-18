@@ -8,7 +8,7 @@ import Faq from '@/components/Faq';
 export const metadata: Metadata = {
   title: 'Gold Price in Nepal Per Tola Today – Tola Suna Ko Bhaau | GoldNepal',
   description:
-    'Gold price in Nepal per tola today. Hallmark gold and tajabi gold rate per tola in Nepalese Rupees. 1 tola = 11.66 grams. Updated daily.',
+    'Gold price in Nepal per tola today. Hallmark gold and tejabi gold rate per tola in Nepalese Rupees. 1 tola = 11.66 grams. Updated daily.',
   keywords: 'gold price per tola nepal, ek tola suna ko bhaau nepal, gold per tola nepal, tola gold price nepal, 1 tola gold price nepal, suna per tola nepal, gold tola rate nepal, tola suna bhaau aaja, nepal gold per tola today',
   alternates: { canonical: '/gold-price-nepal-per-tola/' },
 };
@@ -55,7 +55,7 @@ export default async function GoldPerTolaPage() {
             </div>
             <div className="stat-card">
               <div className="stat-val">{formatNPR(latest.tajabi.tola)}</div>
-              <div className="stat-label">Tajabi Gold / Tola</div>
+              <div className="stat-label">Tejabi Gold / Tola</div>
             </div>
             <div className="stat-card">
               <div className="stat-val">{formatNPR(latest.silver.tola)}</div>
@@ -83,13 +83,13 @@ export default async function GoldPerTolaPage() {
           unit of weight that remains the standard in Nepal&apos;s gold market.
         </p>
         <p>
-          Both hallmark gold (Fine Gold 9999 / 24K) and tajabi gold are priced per tola by the
+          Both hallmark gold (Fine Gold 9999 / 24K) and tejabi gold are priced per tola by the
           Nepal Gold &amp; Silver Dealers&apos; Association every business day.
         </p>
         <div className="tag-cloud" style={{ marginTop: 12 }}>
           <Link href="/gold-price-nepal-per-10gm/" className="tag-pill">Gold Price Per 10g</Link>
           <Link href="/hallmark-gold-price-nepal/" className="tag-pill">Hallmark Gold</Link>
-          <Link href="/tajabi-gold-price-nepal/" className="tag-pill">Tajabi Gold</Link>
+          <Link href="/tejabi-gold-price-nepal/" className="tag-pill">Tejabi Gold</Link>
           <Link href="/silver-price-nepal/" className="tag-pill">Silver Per Tola</Link>
         </div>
       </section>

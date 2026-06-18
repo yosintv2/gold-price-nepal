@@ -19,17 +19,24 @@
 ---
 
 # URL Structure
-
 /
 /gold-price-nepal
 /gold-price-nepal-today
 /gold-price-nepal-per-tola
+/gold-price-nepal-per-tola-today
 /gold-price-nepal-per-10gm
+/gold-price-nepal-per-10gm-today
 /hallmark-gold-price-nepal
+/hallmark-gold-price-nepal-today
 /fine-gold-9999-price-nepal
+/fine-gold-9999-price-nepal-today
 /24k-gold-price-nepal
+/24k-gold-price-nepal-today
+/sunn-ko-bhau-aja
+/ajako-sunn-ko-bhau
 /tajabi-gold-price-nepal
 /silver-price-nepal
+/silver-price-nepal-today
 /history
 /[year]/[month]/[day]
 
