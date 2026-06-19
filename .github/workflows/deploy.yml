@@ -4,11 +4,7 @@ on:
   push:
     branches: [main]
   schedule:
-    # NGSDA publishes rates ~10–11am NPT (4:15–5:15am UTC).
-    # Run at 5:30am UTC (11:15am NPT) to catch morning rates.
-    - cron: '30 5 * * *'
-    # Second run at 8am UTC (1:45pm NPT) as a fallback.
-    - cron: '0 8 * * *'
+    - cron: '0 */3 * * *' # Runs every 3 hours (00:00, 03:00, 06:00, etc. UTC)
   workflow_dispatch:   # Allow manual trigger from GitHub Actions tab
 
 permissions:
